@@ -36,9 +36,9 @@ async function solution2() {
   });
 
   let currentInventory: number = 0;
-  let maxFirstInventory: number = 0;
-  let maxSecondInventory: number = 0;
-  let maxThirdInventory: number = 0;
+  let firstInventory: number = 0;
+  let secondInventory: number = 0;
+  let thirdInventory: number = 0;
 
   for await (const line of rl) {
     if (line.length > 0) {
@@ -47,17 +47,20 @@ async function solution2() {
       currentInventory = 0;
     }
 
-    if (currentInventory > maxFirstInventory && currentInventory > maxSecondInventory && currentInventory > maxThirdInventory) {
-      maxThirdInventory = currentInventory;
-    } else if (currentInventory > maxFirstInventory && currentInventory > maxSecondInventory) {
-      maxSecondInventory = currentInventory;
+    if (currentInventory > firstInventory) {
+      thirdInventory= secondInventory;
+      secondInventory = firstInventory;
+      firstInventory = currentInventory;
+    } else if (currentInventory > secondInventory && currentInventory != firstInventory) {
+      thirdInventory = secondInventory
+      secondInventory = currentInventory
+    } else if (currentInventory > thirdInventory && currentInventory != secondInventory) {
+      thirdInventory = currentInventory
     }
-    else if (currentInventory > maxFirstInventory) {
-      maxFirstInventory = currentInventory;
-    }
+
   }
 
-  console.log(`Top three elves carry ${maxFirstInventory + maxSecondInventory + maxThirdInventory} calories.`);
+  console.log(`Top three elves carry ${firstInventory + secondInventory + thirdInventory} calories.`);
 }
 
 solution();
