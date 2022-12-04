@@ -1,5 +1,5 @@
-const fs = require('fs');
-const readline = require('readline');
+import fs from 'fs';
+import readline from 'readline';
 
 async function solution() {
   const fileStream = fs.createReadStream('./input.txt');
@@ -23,8 +23,7 @@ async function solution() {
       maxInventory = currentInventory;
     }
   }
-
-  console.log(`Max elf carries ${maxInventory} calories.`);
+  console.log('Solution 1-1', maxInventory);
 }
 
 async function solution2() {
@@ -60,7 +59,7 @@ async function solution2() {
 
   }
 
-  console.log(`Top three elves carry ${firstInventory + secondInventory + thirdInventory} calories.`);
+  console.log("Solution 1-2", firstInventory + secondInventory + thirdInventory);
 }
 
 solution();

@@ -1,5 +1,5 @@
-const fs = require('fs');
-const readline = require('readline');
+import fs from 'fs';
+import readline from 'readline';
 
 let rpsMap = new Map<string, string>();
 
@@ -10,8 +10,8 @@ rpsMap.set("X", "rock");
 rpsMap.set("Y", "paper");
 rpsMap.set("Z", "scissors");
 
-function calculateOutcome(scenario : string | undefined, choice: string | undefined): number {
-    let outcome : number = 0;
+function calculateOutcome(scenario: string | undefined, choice: string | undefined): number {
+    let outcome: number = 0;
 
     if (scenario == "lose") {
         outcome += 0;
@@ -41,7 +41,7 @@ function calculateOutcomeSecond(enemyChoice: string | undefined, yourChoice: str
     } else if (enemyChoice == "rock" && yourChoice == "Z") {
         outcome += 8;
     }
-    
+
     if (enemyChoice == "paper" && yourChoice == "X") {
         outcome += 1;
     } else if (enemyChoice == "paper" && yourChoice == "Y") {
@@ -91,7 +91,7 @@ function calculateScenario(enemyChoice: string | undefined, yourChoice: string |
     }
 }
 
-async function solutionPartOne() {
+async function solution() {
     const fileStream = fs.createReadStream('./input.txt');
     const rl = readline.createInterface({
         input: fileStream,
@@ -102,18 +102,19 @@ async function solutionPartOne() {
     let secondPoints: number = 0;
 
     for await (const line of rl) {
-        let choices: [string, string]  = line.split(" ");
-        let enemy: string | undefined= rpsMap.get(choices[0]);
+        let choices: string[] = line.split(" ");
+        let enemy: string | undefined = rpsMap.get(choices[0]);
         let you: string | undefined = rpsMap.get(choices[1]);
 
         firstPoints += calculateOutcome(calculateScenario(enemy, you), you);
         secondPoints += calculateOutcomeSecond(enemy, choices[1]);
     }
 
-    console.log("First Points", firstPoints);
-    console.log("Second Points", secondPoints);
+    console.log("Solution 2-1", firstPoints);
+    console.log("Solution 2-2", secondPoints);
 }
 
+export function secondDayResults(){
+    solution();
+}
 
-
-solutionPartOne();
