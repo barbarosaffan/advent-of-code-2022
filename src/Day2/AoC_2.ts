@@ -1,5 +1,4 @@
-import fs from 'fs';
-import readline from 'readline';
+import { input } from './input';
 
 let rpsMap = new Map<string, string>();
 
@@ -91,17 +90,13 @@ function calculateScenario(enemyChoice: string | undefined, yourChoice: string |
     }
 }
 
-async function solution() {
-    const fileStream = fs.createReadStream('./input.txt');
-    const rl = readline.createInterface({
-        input: fileStream,
-        crlfDelay: Infinity
-    });
+async function solution(input: string) {
+    const lines = input.split("\n");
 
     let firstPoints: number = 0;
     let secondPoints: number = 0;
 
-    for await (const line of rl) {
+    for await (const line of lines) {
         let choices: string[] = line.split(" ");
         let enemy: string | undefined = rpsMap.get(choices[0]);
         let you: string | undefined = rpsMap.get(choices[1]);
@@ -115,6 +110,8 @@ async function solution() {
 }
 
 export function secondDayResults(){
-    solution();
+    solution(input);
 }
+
+secondDayResults();
 
