@@ -1,18 +1,12 @@
-import fs from 'fs';
-import readline from 'readline';
+import { input } from './input';
 
-async function solution() {
-  const fileStream = fs.createReadStream('./input.txt');
-
-  const rl = readline.createInterface({
-    input: fileStream,
-    crlfDelay: Infinity
-  });
+async function solution(input: string) {
+  const lines = input.split("\n");
 
   let currentInventory: number = 0;
   let maxInventory: number = 0;
 
-  for await (const line of rl) {
+  for await (const line of lines) {
     if (line.length > 0) {
       currentInventory += Number(line);
     } else {
@@ -26,20 +20,15 @@ async function solution() {
   console.log('Solution 1-1', maxInventory);
 }
 
-async function solution2() {
-  const fileStream = fs.createReadStream('./input.txt');
-
-  const rl = readline.createInterface({
-    input: fileStream,
-    crlfDelay: Infinity
-  });
+async function solution2(input: string) {
+  const lines = input.split("\n");
 
   let currentInventory: number = 0;
   let firstInventory: number = 0;
   let secondInventory: number = 0;
   let thirdInventory: number = 0;
 
-  for await (const line of rl) {
+  for await (const line of lines) {
     if (line.length > 0) {
       currentInventory += Number(line);
     } else {
@@ -62,5 +51,9 @@ async function solution2() {
   console.log("Solution 1-2", firstInventory + secondInventory + thirdInventory);
 }
 
-solution();
-solution2();
+export function firstDayResults() {
+  solution(input);
+  solution2(input);
+}
+
+firstDayResults();
